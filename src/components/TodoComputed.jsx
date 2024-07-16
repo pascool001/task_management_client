@@ -1,9 +1,18 @@
 import React from 'react';
+import { deleteManyTask, getCompleted } from '../redux/slices/taskSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const TodoComputed = ({ itemsLeft }) => {
 
+  const dispatch = useDispatch()
+
+  const completed_tasks = useSelector(getCompleted)
+
+  const completed_ids = completed_tasks.map((item) => item._id)
+
   const clearCompletedTodos = () => {
-    const newTodos = todos.filter((todo) => !todo.completed);
+    dispatch(deleteManyTask({ids: [...completed_ids]}))
   };
 
   return (

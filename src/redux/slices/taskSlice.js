@@ -38,6 +38,12 @@ export const deleteTask = createAsyncThunk(
     return data
 })
 
+export const deleteManyTask = createAsyncThunk(
+    'task/deleteMenyTask', async (payload) => {
+    const {data} = await axios.post(`${URL}/delete-many`, payload);
+    return data
+})
+
 
 const taskSlice = createSlice({
     name: 'tasks',
@@ -56,6 +62,16 @@ const taskSlice = createSlice({
         .addCase(getOwnerTasks.pending, (state) => { state.status = 'loading' })
         .addCase(getOwnerTasks.fulfilled, (state, action) => { state.status = 'success'; state.tasks = [...action.payload]  })
         .addCase(getOwnerTasks.rejected, (state, action) => { state.status = 'failed'; state.error = action.error.message;})
+
+        .addCase(deleteManyTask.pending, (state) => { state.status = 'loading' })
+        .addCase(deleteManyTask.fulfilled, (state, action) => {
+            const {deletedCount, ids} = action.payload;
+             state.status = 'success';
+             if (deletedCount > 0) {
+                 state.tasks = state.tasks.filter((value) => ids.indexOf(value._id) == -1)  
+             }
+        })
+        .addCase(deleteManyTask.rejected, (state, action) => { state.status = 'failed'; state.error = action.error.message;})
 
         .addCase(postTask.pending, (state) => {state.status = 'loading';  state.error = ''; })
         .addCase(postTask.fulfilled, (state, action) => {state.status = 'success'; state.tasks.push(action.payload); state.error = ''; })
@@ -77,6 +93,7 @@ export const selectAllTasks = (state) => state.taskReducer.tasks;
 export const getTaskStatus = (state) => state.taskReducer.status;
 export const getTaskError = (state) => state.taskReducer.error;
 export const getFilter = (state) => state.taskReducer.filter;
+export const getCompleted = (state) => state.taskReducer.tasks.filter((task) => task.completed === true)
 
 export const { ChangeFilter } = taskSlice.actions
 export default taskSlice.reducer

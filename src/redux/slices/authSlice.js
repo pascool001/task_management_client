@@ -97,6 +97,7 @@ const authSlice = createSlice({
 
 
 export const isAuthenticated = (state) => state.authReducer.isAuthenticated;
+export const connectedUser = (state) => state.authReducer.connectedUser;
 export const token = (state) => state.authReducer.token;
 export const getState = (state) => state.authReducer;
 
