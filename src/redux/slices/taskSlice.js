@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const URL = 'http://localhost:4000/api/tasks';
+// const URL = 'http://localhost:4000/api/tasks';
+const URL = import.meta.env.VITE_URL;
+
+const getToken = () => localStorage.getItem('token')
 
 const initialState = {
     tasks: [],
@@ -11,36 +14,36 @@ const initialState = {
 }
 
 export const getOwnerTasks = createAsyncThunk('task/getOwnerTasks', async (ownerid) => {
-    const {data} = await axios.get(`${URL}/owner/${ownerid}`);
+    const {data} = await axios.get(`${URL}/tasks/owner/${ownerid}`, {headers: {Authorization: getToken()}});
     return data
 })
 
 
 export const getTasks = createAsyncThunk('task/getTasks', async () => {
-    const {data} = await axios.get(URL);
+    const {data} = await axios.get(`${URL}/tasks`, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const postTask = createAsyncThunk('task/postTask',  async (payload) => {
     console.log('payload: ', payload)
-    const {data} = await axios.post(URL, payload);
+    const {data} = await axios.post(`${URL}/tasks`, payload, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const putTask = createAsyncThunk('task/putTask', async (payload) => {
-    const {data} = await axios.put(`${URL}/${payload._id}`, payload);
+    const {data} = await axios.put(`${URL}/tasks/${payload._id}`, payload, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const deleteTask = createAsyncThunk(
     'task/deleteTask', async (id) => {
-    const {data} = await axios.delete(`${URL}/${id}`);
+    const {data} = await axios.delete(`${URL}/tasks/${id}`, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const deleteManyTask = createAsyncThunk(
     'task/deleteMenyTask', async (payload) => {
-    const {data} = await axios.post(`${URL}/delete-many`, payload);
+    const {data} = await axios.post(`${URL}/tasks/delete-many`, payload, {headers: {Authorization: getToken()}});
     return data
 })
 

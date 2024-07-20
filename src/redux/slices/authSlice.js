@@ -1,10 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const URL = 'http://localhost:4000/api/auth';
+// const URL = 'http://localhost:4000/api';
+const URL = import.meta.env.VITE_URL;
+
+const getToken = () => localStorage.getItem('token')
 
 const initialState = {
     connectedUser: null,
+    profileImage: null,
     isAuthenticated: false,
     token: null,
     status: 'idle', //'idle' | 'loading' | 'success' | 'failed'?
@@ -13,18 +17,23 @@ const initialState = {
 }
 
 export const authenticate = createAsyncThunk('auth/login', async (payload) => {
-    const {data} = await axios.post(`${URL}/login`, payload);
-    console.log('authData : ', data)
+    const {data} = await axios.post(`${URL}/auth/login`, payload);
+    return data
+})
+
+
+export const setProfileImage = createAsyncThunk('auth/profileImage', async (payload) => {
+    const {data} = await axios.post(`${URL}/files/upload`, payload, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const register = createAsyncThunk('auth/register',  async (payload) => {
-    const {data} = await axios.post(`${URL}/register`, payload);
+    const {data} = await axios.post(`${URL}/auth/register`, payload);
     return data
 })
 
 export const activate = createAsyncThunk('auth/activation', async (payload) => {
-    const {data} = await axios.post(`${URL}/activation`, payload);
+    const {data} = await axios.post(`${URL}/auth/activation`, payload);
     return data
 })
 
@@ -46,11 +55,13 @@ const authSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-        .addCase(authenticate.pending, (state) => { state.status = 'loading' })
+        .addCase(authenticate.pending, (state) => { state.status = 'loading', state.profileImage = null })
         .addCase(authenticate.fulfilled, (state, action) => {
             const {data: {user, accessToken}} = action.payload;
+            localStorage.setItem('token', accessToken)
             state.status = 'success';
             state.connectedUser = user;
+            state.profileImage = user.avatar;
             state.token = accessToken;
             state.isAuthenticated = true;
             state.message = null
@@ -81,7 +92,6 @@ const authSlice = createSlice({
             state.IsOk= action.payload.isOk
             state.message = action.payload.message
         })
-
         .addCase(activate.rejected, (state, action) => {
             state.status = 'failed';
             state.connectedUser = null;
@@ -90,7 +100,9 @@ const authSlice = createSlice({
             state.IsOk=false
             state.message = action.payload.message
         })
- 
+        .addCase(setProfileImage.fulfilled, (state, action) => {
+            state.profileImage = action.payload.avatar;
+        })
     } 
 })
         
