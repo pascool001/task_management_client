@@ -11,7 +11,7 @@ function LoginForm() {
     const navigate = useNavigate()  
     const dispatch = useDispatch()
 
-    const {status} = useSelector(getState)
+    const {status, isAuthenticated} = useSelector(getState)
 
     const handleClick = () => navigate('/security/register');
 
@@ -20,10 +20,10 @@ function LoginForm() {
     };
 
     useEffect(() => {
-      if (status === 'success') {
+      if (status === 'success' && isAuthenticated) {
         navigate("/home")
       }
-    }, [status]);
+    }, [status, isAuthenticated]);
 
     useEffect(() => {
       if (isFormInvalid(errors)) {

@@ -14,13 +14,12 @@ function Activation() {
     
     const dispatch = useDispatch()
 
-    const {isOk, status, message} = useSelector(getState)
+    const {IsOk, status, message} = useSelector(getState)
 
     const goToLogin = () => navigate("/security/login")
 
     useEffect(() => {
         if (id && token) {
-            console.log('params: ', id, ' - ', token)
             dispatch(activate({userId: id, token}))
         }
     }, []);
@@ -43,7 +42,7 @@ function Activation() {
         </div>) : 
         (<div>
             {
-                isOk ? (
+                IsOk ? (
                     <div className="mb-4 rounded-lg p-3 text-base text-success-700 text-center bg-green-200" role="alert">
                     {message}
                     </div>
