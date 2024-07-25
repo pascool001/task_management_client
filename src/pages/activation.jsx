@@ -57,7 +57,8 @@ function Activation() {
     }
 
     <div className="flex items-center justify-center mt-12">
-        <a href="#!" onClick={goToLogin} className="font-semibold text-indigo-600 hover:text-indigo-500">Retour au login</a>
+        <Link to="/security/login" className="font-semibold mt-3 text-indigo-600 hover:text-indigo-500">Retour au login</Link>
+        {/* <a href="#!" onClick={goToLogin} className="font-semibold text-indigo-600 hover:text-indigo-500">Retour au login</a> */}
     </div>
    
   </div>

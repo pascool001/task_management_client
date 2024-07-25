@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { isFormInvalid } from '../utils/isFormInvalide';
 import { useDispatch, useSelector } from 'react-redux'
 import { authenticate, getState } from '../redux/slices/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 
 function LoginForm() {
     const [showPwd, setShowPwd] = useState(false)
@@ -138,9 +139,11 @@ function LoginForm() {
             >
             Connection
           </button>
-          <a href="#!" onClick={handleClick} className="font-semibold mt-3 text-indigo-600 hover:text-indigo-500">
+          <Link to="/security/register" className="font-semibold mt-3 text-indigo-600 hover:text-indigo-500">{"je crée mon compte"}</Link>
+          {/* <a href="#!" onClick={handleClick} className="font-semibold mt-3 text-indigo-600 hover:text-indigo-500">
               je crée mon compte
-          </a>
+          </a> */}
+         
         </div>
       </form>
     </div>

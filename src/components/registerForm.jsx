@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getState, register as createAccount, setStatusToIdle } from '../redux/slices/authSlice';
 import Spinner from './spinner';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 
@@ -193,9 +193,10 @@ function RegisterForm() {
           
             Register
         </button>
-        <a href="#!" onClick={backToLogin} className="font-semibold mt-2 text-indigo-600 hover:text-indigo-500">
+        <Link to="/security/login" className="font-semibold mt-3 text-indigo-600 hover:text-indigo-500">Retour au login</Link>
+        {/* <a href="#!" onClick={backToLogin} className="font-semibold mt-2 text-indigo-600 hover:text-indigo-500">
               Retour au login
-            </a>
+        </a> */}
         </div>
       </form>
     </div>
