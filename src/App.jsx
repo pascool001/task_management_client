@@ -26,6 +26,7 @@ function App() {
           <Route path="register"  element={<Register />} />
           <Route path="activation"  element={<Activation />} />
       </Route>
+      <Route path="*"  element={<Navigate to="/" replace={true} />} />
     </Routes>
     </div>
   )
