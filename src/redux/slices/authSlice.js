@@ -17,23 +17,23 @@ const initialState = {
 }
 
 export const authenticate = createAsyncThunk('auth/login', async (payload) => {
-    const {data} = await axios.post(`${URL}/auth/login`, payload);
+    const {data} = await axios.post(`${URL}/api/auth/login`, payload);
     return data
 })
 
 
 export const setProfileImage = createAsyncThunk('auth/profileImage', async (payload) => {
-    const {data} = await axios.post(`${URL}/files/upload`, payload, {headers: {Authorization: getToken()}});
+    const {data} = await axios.post(`${URL}/api/files/upload`, payload, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const register = createAsyncThunk('auth/register',  async (payload) => {
-    const {data} = await axios.post(`${URL}/auth/register`, payload);
+    const {data} = await axios.post(`${URL}/api/auth/register`, payload);
     return data
 })
 
 export const activate = createAsyncThunk('auth/activation', async (payload) => {
-    const {data} = await axios.post(`${URL}/auth/activation`, payload);
+    const {data} = await axios.post(`${URL}/api/auth/activation`, payload);
     return data
 })
 

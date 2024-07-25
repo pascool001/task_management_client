@@ -6,9 +6,6 @@ import Login from './pages/login'
 import Register from './pages/register'
 import Activation from './pages/activation'
 import PrivateRoute from './components/privateRoute'
-// import { getOwnerTasks } from './redux/slices/taskSlice'
-// // import { isAuthenticated } from './redux/slices/authSlice'
-// import { useDispatch, useSelector } from 'react-redux'
 
 
 function App() {

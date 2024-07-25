@@ -14,36 +14,36 @@ const initialState = {
 }
 
 export const getOwnerTasks = createAsyncThunk('task/getOwnerTasks', async (ownerid) => {
-    const {data} = await axios.get(`${URL}/tasks/owner/${ownerid}`, {headers: {Authorization: getToken()}});
+    const {data} = await axios.get(`${URL}/api/tasks/owner/${ownerid}`, {headers: {Authorization: getToken()}});
     return data
 })
 
 
 export const getTasks = createAsyncThunk('task/getTasks', async () => {
-    const {data} = await axios.get(`${URL}/tasks`, {headers: {Authorization: getToken()}});
+    const {data} = await axios.get(`${URL}/api/tasks`, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const postTask = createAsyncThunk('task/postTask',  async (payload) => {
     console.log('payload: ', payload)
-    const {data} = await axios.post(`${URL}/tasks`, payload, {headers: {Authorization: getToken()}});
+    const {data} = await axios.post(`${URL}/api/tasks`, payload, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const putTask = createAsyncThunk('task/putTask', async (payload) => {
-    const {data} = await axios.put(`${URL}/tasks/${payload._id}`, payload, {headers: {Authorization: getToken()}});
+    const {data} = await axios.put(`${URL}/api/tasks/${payload._id}`, payload, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const deleteTask = createAsyncThunk(
     'task/deleteTask', async (id) => {
-    const {data} = await axios.delete(`${URL}/tasks/${id}`, {headers: {Authorization: getToken()}});
+    const {data} = await axios.delete(`${URL}/api/tasks/${id}`, {headers: {Authorization: getToken()}});
     return data
 })
 
 export const deleteManyTask = createAsyncThunk(
     'task/deleteMenyTask', async (payload) => {
-    const {data} = await axios.post(`${URL}/tasks/delete-many`, payload, {headers: {Authorization: getToken()}});
+    const {data} = await axios.post(`${URL}/api/tasks/delete-many`, payload, {headers: {Authorization: getToken()}});
     return data
 })
 
