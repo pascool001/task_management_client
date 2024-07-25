@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams, Link } from 'react-router-dom'
 import accountImg from '../assets/images/Account.png'
 import { activate, getState } from '../redux/slices/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
