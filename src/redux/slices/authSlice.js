@@ -3,6 +3,7 @@ import axios from "axios";
 
 // const URL = 'http://localhost:4000/api';
 const URL = import.meta.env.VITE_URL;
+console.log('URL: ', URL)
 
 const getToken = () => localStorage.getItem('token')
 
