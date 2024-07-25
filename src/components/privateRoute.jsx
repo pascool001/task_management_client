@@ -7,6 +7,7 @@ import { isAuthenticated } from '../redux/slices/authSlice'
 function PrivateRoute({children}) {
 
     const connected = useSelector(isAuthenticated)
+    console.log('Private route ......')
     
   return (
     connected ? children : <Navigate to={'/security/login'} replace />

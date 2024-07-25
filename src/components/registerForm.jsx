@@ -30,9 +30,9 @@ function RegisterForm() {
       if (['success', 'failed'].includes(status)) {
         setTimeout(() => {
           dispatch(setStatusToIdle())
-          // navigate("/security/login")
         }, 6000);
       }
+      // navigate("/security/login")
       
     }, [status]);  
 
